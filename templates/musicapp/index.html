@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 {% block title %} MusicApp - Home {% endblock title %}
 {% block body %} 
 
 <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
     <div class="container text-center">
-      <h1 class="display-1 text-secondary">QuizUp</h1>
-      <p class="display-4 d-none d-sm-block text-dark">Test your skills and become a master.</p>
-      <p class="lead">We organize quizzes on various topics.</p>
+      <h1 class="display-1 text-secondary">Music Player</h1>
+      <p class="display-4 d-none d-sm-block text-dark">Listen to your favourite music here!</p>
+      <p class="lead">See the trending songs!</p>
 
       {% if request.user.is_active %}
-        <a href="#" class="btn btn-lg btn-secondary mt-2 mx-2">Let's play</a>
+        <a href="#" class="btn btn-lg btn-secondary mt-2 mx-2">Trending</a>
 
       {% else %}
-      <p class="lead">Register yourself if you haven't already and get access to quizzes on the topic of your interest.</p>
-      <p><strong> Start Your Journey Here:</strong></p>
-      <a href="{% url 'signup' %}" class="btn btn-lg btn-secondary mt-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
-
+      <p class="lead">Register yourself if you haven't already and create your custom playlists.</p>
+      <p><strong> Sign Up here:</strong></p>
+      <a href="{% url 'signup' %}" class="btn btn-secondary"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+      <!-- <a href="{% url 'signup' %}" class="btn btn-lg btn-secondary mt-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a> -->
+      <a href="{% provider_login_url 'google' process='login' %}" class="btn btn-outline-dark">
+        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+        Sign in with Google
+      </a>
       {% endif %}
     </div>  
 </section>

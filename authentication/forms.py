@@ -26,7 +26,7 @@ class UserLoginForm(forms.Form):
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}), required=True)
+    email = forms.HiddenInput()
     first_name = forms.HiddenInput()
     last_name = forms.HiddenInput()
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
@@ -39,7 +39,6 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = [
             'username',
-            'email',
             'password1',
             'password2',
         ]
@@ -48,7 +47,7 @@ class RegistrationForm(UserCreationForm):
         user = super(RegistrationForm, self).save(commit=False)
         # user.first_name = self.cleaned_data['first_name']
         # user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
+        # user.email = self.cleaned_data['email']
 
         if commit:
             user.save()
