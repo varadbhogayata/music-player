@@ -4,9 +4,7 @@ from django import forms
 from django.contrib.auth import authenticate
 
 class UserLoginForm(forms.Form):
-    # username = forms.CharField()
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Enter Username'}))
-    # password = forms.CharField(widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
 
     def clean(self, *args, **kwargs):
@@ -26,9 +24,6 @@ class UserLoginForm(forms.Form):
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.HiddenInput()
-    first_name = forms.HiddenInput()
-    last_name = forms.HiddenInput()
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
     password2 = forms.CharField(
         label='Password confirmation',
@@ -37,19 +32,10 @@ class RegistrationForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = [
-            'username',
-            'password1',
-            'password2',
-        ]
+        fields = ['username','password1','password2',]
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
-        # user.first_name = self.cleaned_data['first_name']
-        # user.last_name = self.cleaned_data['last_name']
-        # user.email = self.cleaned_data['email']
-
         if commit:
             user.save()
-
         return user
