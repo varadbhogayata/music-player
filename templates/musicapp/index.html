@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} MusicApp - Home {% endblock title %}
+{% block body %} 
+
+<section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+      <h1 class="display-1 text-secondary">QuizUp</h1>
+      <p class="display-4 d-none d-sm-block text-dark">Test your skills and become a master.</p>
+      <p class="lead">We organize quizzes on various topics.</p>
+
+      {% if request.user.is_active %}
+        <a href="#" class="btn btn-lg btn-secondary mt-2 mx-2">Let's play</a>
+
+      {% else %}
+      <p class="lead">Register yourself if you haven't already and get access to quizzes on the topic of your interest.</p>
+      <p><strong> Start Your Journey Here:</strong></p>
+      <a href="{% url 'signup' %}" class="btn btn-lg btn-secondary mt-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+
+      {% endif %}
+    </div>  
+</section>
+
+{% endblock body %}

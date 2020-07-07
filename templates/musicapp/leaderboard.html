@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} MusicApp |  {% endblock title %}
+{% block body %}
+<div class="container">
+    <h1 class="text-center my-4">
+        <span class="badge badge-dark">
+            <i class="fa fa-trophy" aria-hidden="true"></i> TOP {{ total_count }} PLAYERS <i class="fa fa-trophy" aria-hidden="true"></i>
+        </span>
+    </h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Username</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz_profile in top_quiz_profiles %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ quiz_profile.user.username }}</td>
+                <td>{{ quiz_profile.total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

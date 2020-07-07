@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock title %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> 
+    <style>
+        .navbar
+        {
+            font-family: 'Source Code Pro', monospace;
+        }   
+    </style>
+    {% block header %} {% endblock header %}
+    
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <h1><a href="{% url 'index' %}" class="navbar-brand">
+            <strong>Music Player</strong></a></h1>
+            <div class="collapse navbar-collapse">
+                {% if request.user.is_active %}
+                <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a>
+                <a href="#" class="btn btn-outline-light mt-2 mx-1">Let's play</a>
+                {% else %}
+                <a href="#" class="btn btn-outline-light mt-2 mx-1">Playlist</a>
+                {% endif %}
+            </div>
+            
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ user.username }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                <a class="dropdown-item" href="#">My account</a>
+                <a class="dropdown-item" href="#">Change password</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                </div>
+            </li>
+            </ul>
+            {% else %}
+                <form class="form-inline ml-auto">
+                <a href="{% url 'login' %}" class="btn btn-outline-light">Log in</a>
+                <a href="{% url 'signup' %}" class="btn btn-light ml-2">Sign up</a>
+                </form>
+            {% endif %}
+
+            <!-- <div class="collapse navbar-collapse justify-content-end" id="navbar">
+                {% if request.user.is_active %}
+                <h5 class="text-white mt-3 mx-2">Hi, {{ request.user.username }}</h5>
+                <a href="{% url 'logout' %}" class="btn btn-danger mt-2 mx-2"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-light mt-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
+                {% endif %}
+                
+            </div> -->
+        </div>
+
+    </nav>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% block body %}
+    {% endblock body %}
+    
+    
+
+    <footer class="bg-light text-muted py-0">
+        <div class="container py-4">
+            <ul class="list-inline mb-0 text-center">
+                <li class="list-inline-item">&copy; Music Player 2020</li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.min.js" integrity="sha512-HYG9E+RmbXS7oy529Nk8byKFw5jqM3R1zzvoV2JnltsIGkK/AhZSzciYCNxDMOXEbYO9w6MJ6SpuYgm5PJPpeQ==" crossorigin="anonymous"></script>
+</body>
+</html>
