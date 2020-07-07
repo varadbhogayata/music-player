@@ -23,19 +23,21 @@
 {% block body %}
 <main role="main" class="container col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4">
   <br>
-  <h1>Log In</h1>
-  <hr>
+  <h1 class="text-center">Log In</h1>
+  <br>
+  <a href="{% provider_login_url 'google' process='login' %}" class="btn btn-outline-dark btn-block">
+    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+    Sign in with Google
+  </a>
+  <div class="or-seperator"><i>or</i></div>
   <form method="post">
     {% csrf_token %}
     {{form|crispy}}
     <button class="btn btn-success btn-block" type="submit">Log In</button>
     <p></p>
     <!-- <p><a href="#" class="btn btn-danger btn-block" role="button"><i class="fa fa-google"></i> Sign up using Google</a></p> -->
-    <div class="or-seperator"><i>or</i></div>
-    <a href="{% provider_login_url 'google' process='login' %}" class="btn btn-outline-dark btn-block">
-      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-      Sign in with Google
-    </a>
+    
+    
   </form>
   <br>
   <!-- <p>Already have an account? Please <a href="{% url 'signup' %}">log in</a>.</p> -->

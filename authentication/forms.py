@@ -27,19 +27,18 @@ class UserLoginForm(forms.Form):
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}), required=True)
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=False)
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
-    # password = forms.CharField(
-    #     help_text='<ul>Your password can’t be too similar to your other personal information.Your password must contain at least 8 characters.Your password can’t be a commonly used password. Your password can’t be entirely numeric.</ul>',
-    #     widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
-    # password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Reenter Password'}))
+    first_name = forms.HiddenInput()
+    last_name = forms.HiddenInput()
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
+    password2 = forms.CharField(
+        label='Password confirmation',
+        help_text='Enter the same password as before, for verification.', 
+        widget=forms.PasswordInput(attrs={'placeholder': 'Re Enter Password'}))
     
     class Meta:
         model = User
         fields = [
             'username',
-            'first_name',
-            'last_name',
             'email',
             'password1',
             'password2',
@@ -47,8 +46,8 @@ class RegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
+        # user.first_name = self.cleaned_data['first_name']
+        # user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
 
         if commit:

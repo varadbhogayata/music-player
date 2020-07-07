@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,11 +11,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> 
+    
+    <link href="{% static 'musicapp/css/musicplayer.css' %}" rel="stylesheet">
     <style>
         .navbar
         {
             font-family: 'Source Code Pro', monospace;
-        }   
+        }
+        
+       
     </style>
     {% block header %} {% endblock header %}
     
@@ -29,11 +34,11 @@
                 <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a>
                 <a href="#" class="btn btn-outline-light mt-2 mx-1">Let's play</a>
                 {% else %}
-                <a href="#" class="btn btn-outline-light mt-2 mx-1">Playlist</a>
+                <a href="#" class="btn btn-outline-light mt-2 mx-1">Let's play</a>
                 {% endif %}
             </div>
             
-            {% if user.is_authenticated %}
+            <!-- {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,22 +57,22 @@
                 <a href="{% url 'login' %}" class="btn btn-outline-light">Log in</a>
                 <a href="{% url 'signup' %}" class="btn btn-light ml-2">Sign up</a>
                 </form>
-            {% endif %}
+            {% endif %} -->
 
-            <!-- <div class="collapse navbar-collapse justify-content-end" id="navbar">
-                {% if request.user.is_active %}
-                <h5 class="text-white mt-3 mx-2">Hi, {{ request.user.username }}</h5>
-                <a href="{% url 'logout' %}" class="btn btn-danger mt-2 mx-2"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-light mt-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
-                {% endif %}
-                
-            </div> -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbar">
+            {% if request.user.is_active %}
+            <h5 class="text-white mt-3 mx-2">Hi, {{ request.user.username }}</h5>
+            <a href="{% url 'logout' %}" class="btn btn-danger mt-2 mx-2"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-light mt-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
+            <a href="{% url 'signup' %}" class="btn btn-light mt-2 mx-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+            {% endif %}            
+            </div>
         </div>
 
     </nav>
 
-    {% if messages %}
+    <!-- {% if messages %}
     <ul class="messages">
         {% for message in messages %}
         <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -78,20 +83,38 @@
           </div>
         {% endfor %}
     </ul>
-    {% endif %}
+    {% endif %} -->
 
     {% block body %}
     {% endblock body %}
     
-    
+    <!-- {% if user.is_authenticated %}
+    <div class="col-md-12 text-center">
+        <div class="btn-group">
+            <button type="button" class="btn btn-success"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-success"><i class="fa fa-backward" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-success"><i class="fa fa-pause-circle" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-success"><i class="fa fa-play-circle" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-success"><i class="fa fa-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-success"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    {% endif %} -->
 
-    <footer class="bg-light text-muted py-0">
+    <div class="content">
+        <div class="lyrics"></div>
+     </div>
+    
+    {% if user.is_authenticated %}
+    {% include 'musicbar.html' %}
+    {% endif %}
+    <!-- <footer class="bg-light text-muted py-0">
         <div class="container py-4">
             <ul class="list-inline mb-0 text-center">
                 <li class="list-inline-item">&copy; Music Player 2020</li>
             </ul>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- jQuery first, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
