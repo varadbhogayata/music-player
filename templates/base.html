@@ -31,10 +31,8 @@
             <strong>Music Player</strong></a></h1>
             <div class="collapse navbar-collapse">
                 {% if request.user.is_active %}
-                <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a>
-                <a href="#" class="btn btn-outline-light mt-2 mx-1">Let's play</a>
-                {% else %}
-                <a href="#" class="btn btn-outline-light mt-2 mx-1">Let's play</a>
+                <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
+                <a href="#" class="btn btn-outline-light mt-2 mx-1">My Playlists</a>
                 {% endif %}
             </div>
             
@@ -62,9 +60,9 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbar">
             {% if request.user.is_active %}
             <h5 class="text-white mt-3 mx-2">Hi, {{ request.user.username }}</h5>
-            <a href="{% url 'logout' %}" class="btn btn-danger mt-2 mx-2"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <a href="{% url 'logout' %}" class="btn btn-light mt-2 mx-2"> Sign Out <i class="fa fa-sign-out" aria-hidden="true"></i></a>
             {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-light mt-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-light mt-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
             <a href="{% url 'signup' %}" class="btn btn-light mt-2 mx-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
             {% endif %}            
             </div>
