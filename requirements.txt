@@ -7,6 +7,7 @@ defusedxml==0.6.0
 Django==3.0.8
 django-allauth==0.42.0
 django-crispy-forms==1.9.1
+django-debug-toolbar==2.2
 django-environ==0.4.5
 django-model-utils==4.0.0
 django-redis==4.12.1
@@ -15,7 +16,9 @@ hiredis==1.0.1
 idna==2.10
 oauthlib==3.1.0
 Pillow==7.2.0
+psycopg2==2.8.5
 pycparser==2.20
+python-decouple==3.3
 python-slugify==4.0.1
 python3-openid==3.2.0
 pytz==2020.1
