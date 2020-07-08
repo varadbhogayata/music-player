@@ -3,27 +3,47 @@
 {% block title %} MusicApp - Home {% endblock title %}
 {% block body %} 
 
-<section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
-    <div class="container text-center">
-      <h1 class="display-1 text-secondary">Music Player</h1>
-      <p class="display-4 d-none d-sm-block text-dark">Listen to your favourite songs here!</p>
-      <p class="lead">See the trending songs!</p>
+<br>
+<div class="container">
+  <div class="col-xs-6 col-xs-offset-3">
+    <form class="form-horizontal" role="search" method="get" action=''>
+          <div class="form-group">
+              <div class="input-group">
+                  <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
+                  <span class='input-group-btn'>
+                    <button type="button" class="btn btn-dark" type="submit">Search</button>
+                  </span>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
 
-      {% if request.user.is_active %}
-        <a href="#" class="btn btn-lg btn-secondary mt-2 mx-2">Trending</a>
 
-      {% else %}
-      <p class="lead">Register yourself if you haven't already and create your own custom playlists.</p>
-      <p><strong> Get Started</strong></p>
-      <a href="{% url 'signup' %}" class="btn btn-secondary"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
-      <a href="{% url 'login' %}" class="btn btn-secondary"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
-      <!-- <a href="{% url 'signup' %}" class="btn btn-lg btn-secondary mt-2"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a> -->
-      <!-- <a href="{% provider_login_url 'google' process='login' %}" class="btn btn-outline-dark">
-        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-        Sign in with Google
-      </a> -->
-      {% endif %}
-    </div>  
-</section>
+<p style="text-align:left;">
+  <span style="float:right;">
+  <h2>Trending Songs</h2>
+  </span>
+</p>
+<hr>
+<br>
 
+<!-- Movie list -->
+  <div class="row">
+          {% if songs %}
+          {% for song in songs %}
+              <div class="col-sm-2">
+                  <div class="thumbnail">
+                      <h5>{{song.name}}</h5>
+                      <a href='#'>
+                          <img src="{{ song.song_img.url}}" class="img-responsive" height="200" width="200">
+                      </a>
+                      <!-- <h5>{{movie.genre}}</h5> -->
+                  </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+      </div>
+
+</div>
 {% endblock body %}
