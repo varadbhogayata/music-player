@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %} MusicApp - Detail {% endblock title %}
+{% block body %} 
+
+<br>
+<hr>
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                      <div class="tab-pane active"><img src="{{songs.song_img.url}}" height="300" width="300"></div>
+                    </div>
+                    
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title">{{songs.name}}</h3>
+                    <h5>Album: {{songs.album}}</h5>
+                    <h6>Genre: {{songs.genre}}</h6>
+                    <h5>Singer: {{songs.singer}}</h5>
+                    <h6>Release Year: {{songs.year}}</h6>
+                    <audio controls>
+                        <source src="{{ songs.song_file.url }}" type="audio/mpeg">
+                    </audio>                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="player">
+    <div class="left"><img src="{{songs.song_img.url}}" height="80" width="80"></div>
+    <div class="right">
+       <div class="top">
+          <a class="song" >{{songs.name}}</a>
+          <a class="artist" >{{songs.album}}</a>
+       </div>
+       <div class="bottom">
+          <video controls="" _autoplay="" name="media"><source src="{{songs.song_file.url}}" type="audio/mpeg"></video>
+       </div>
+    </div>
+ </div>
+{% endblock body %}
