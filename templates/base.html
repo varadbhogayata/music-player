@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    
     <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> 
     
@@ -32,7 +34,7 @@
             <div class="collapse navbar-collapse">
                 {% if request.user.is_active %}
                 <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
-                <a href="#" class="btn btn-outline-light mt-2 mx-1">My Playlists</a>
+                <a href="#" class="btn btn-outline-light mt-2 mx-1">My Music</a>
                 {% endif %}
             </div>
             
@@ -107,7 +109,8 @@
     <br>
     <br>
     <br>
-    {% include 'musicbar.html' %}
+    <!-- {% include 'musicbar.html' %} -->
+    
     <!-- {% endif %} -->
     <!-- <footer class="bg-light text-muted py-0">
         <div class="container py-4">
