@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse">
                 {% if request.user.is_active %}
                 <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
-                <a href="#" class="btn btn-outline-light mt-2 mx-1">My Music</a>
+                <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a>
                 {% endif %}
             </div>
             
