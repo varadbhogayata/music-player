@@ -22,7 +22,7 @@ def login_request(request):
 
         login(request, user)
         # messages.info(request, f"You are now logged in  as {user}")
-        return redirect('user-home')
+        return redirect('index')
     else:
         print(form.errors)
         # messages.error(request, 'Username or Password is Incorrect! ')
