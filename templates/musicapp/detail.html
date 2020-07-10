@@ -2,7 +2,19 @@
 {% load socialaccount %}
 {% block title %} MusicApp - Detail {% endblock title %}
 {% block body %} 
-
+<br>
+{% if messages %}
+    <ul class="messages" style="width: 600px;margin-left:400px">
+        {% for message in messages %}
+            <div class="alert alert-success">
+              <strong>Success!</strong> {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endfor %}
+    </ul>
+{% endif %}
 <br>
 <hr>
 <div class="container">
@@ -24,14 +36,54 @@
                     <h6>Release Year: {{songs.year}}</h6>
                     <audio controls>
                         <source src="{{ songs.song_file.url }}" type="audio/mpeg">
-                    </audio>                
+                    </audio>  
+                    <!-- <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Add to playlist
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn" name="new" >
+                                    <a class="dropdown-item" href="#"><h6>Create new playlist</h6></a>
+                                </button>
+                            </form>
+                          
+                            {% if playlists %}
+                            {% for playlist in playlists %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn" name="playlist" >
+                                        <a class="dropdown-item" href="{% url 'playlist' %}">{{playlist.playlist_name}}</a>
+                                    </button>
+                                </form>
+                            {% endfor %}
+                            {% endif %}
+     
+                        </div>
+                      </div>    -->
+                      <form method="post">
+                        {% csrf_token %}
+                            <select class="btn btn-dark" onChange="form.submit();" name="playlist">
+                                <option selected="selected" disabled>Add to playlist</option>
+                                <option value="new">Create new playlist</option>
+                                {% if playlists %}
+                                {% for playlist in playlists %}
+                                    <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>  
+                        <!-- <input class="btn btn-dark"type="submit" value="Submit">  -->
+                    </form>    
+        
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<br>
+<!-- <br>
 <br>
 <br>
 <br>
@@ -47,5 +99,5 @@
           <video controls="" _autoplay="" name="media"><source src="{{songs.song_file.url}}" type="audio/mpeg"></video>
        </div>
     </div>
- </div>
+ </div> -->
 {% endblock body %}
