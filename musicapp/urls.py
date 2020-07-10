@@ -9,5 +9,6 @@ urlpatterns = [
     path('playlist/', views.playlist, name='playlist'),
     path('playlist/<str:playlist_name>/', views.playlist_songs, name='playlist_songs'),
     path('favourite/', views.favourite, name='favourite'),
+    path('all_songs/', views.all_songs, name='all_songs'),
 
     ]

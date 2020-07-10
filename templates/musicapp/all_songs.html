@@ -2,9 +2,24 @@
 {% load socialaccount %}
 {% block title %} MusicApp - Home {% endblock title %}
 {% block body %} 
+
 <br>
 <br>
-<center><h3>Playlist-{{playlist_name}}</h3></center>
+<div class="container">
+  <div class="col-md-12">
+    <form class="form-horizontal" role="search" method="get" action=''>
+          <div class="form-group">
+              <div class="input-group">
+                  <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
+                  <span class='input-group-btn'>
+                    <button type="button" class="btn btn-dark" type="submit">Search</button>
+                  </span>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+<br>
 <table class="table table-hover table-dark">
     <thead>
       <tr>
@@ -13,7 +28,6 @@
         <th scope="col">Album</th>
         <th scope="col">Singer</th>
         <th scope="col">Song</th>
-        <th scope="col">Action</th>
 
       </tr>
     </thead>
@@ -30,17 +44,10 @@
             <source src="{{ song.song_file.url }}" type="audio/mpeg">
         </audio> 
         </td>
-        <td>
-          <form method="post">
-            {% csrf_token %}
-            <input class="btn btn-dark" type="submit" value="Remove" name={{song.id}}> 
-            </form>
-        </td>
       </tr>
       {% endfor %}
       {% endif %}
     </tbody>
   </table>
-
 
 {% endblock body %}

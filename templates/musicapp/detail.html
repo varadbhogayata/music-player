@@ -55,6 +55,7 @@
                         {% csrf_token %}
                             <select class="btn btn-dark" onChange="form.submit();" name="playlist">
                                 <option selected="selected" disabled>Add to playlist</option>
+                                <option value="new">Create new playlist</option>
                                 {% if playlists %}
                                 {% for playlist in playlists %}
                                     <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
