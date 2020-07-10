@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.db.models import Q
-
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -31,7 +31,7 @@ def detail(request, song_id):
             playlist_name = request.POST["playlist"]
             q=Playlist(user=request.user,song=songs,playlist_name=playlist_name)
             q.save()
-
+            messages.success(request, "Song added to playlist!")
 
     context = {'songs':songs,'playlists':playlists}
     return render(request, 'musicapp/detail.html', context=context)
@@ -54,6 +54,8 @@ def playlist_songs(request, playlist_name):
         song_id = list(request.POST.keys())[1]
         playlist_song = Playlist.objects.filter(playlist_name=playlist_name, song__id=song_id)
         playlist_song.delete()
+        messages.success(request, "Song removed from playlist!")
+
     context = {'playlist_name':playlist_name,'songs':songs}
 
     return render(request, 'musicapp/playlist_songs.html', context=context)
