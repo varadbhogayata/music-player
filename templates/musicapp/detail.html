@@ -37,46 +37,44 @@
                     <audio controls>
                         <source src="{{ songs.song_file.url }}" type="audio/mpeg">
                     </audio>  
-                    <!-- <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Add to playlist
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            
-                            <form method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn" name="new" >
-                                    <a class="dropdown-item" href="#"><h6>Create new playlist</h6></a>
-                                </button>
-                            </form>
-                          
-                            {% if playlists %}
-                            {% for playlist in playlists %}
-                                <form method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn" name="playlist" >
-                                        <a class="dropdown-item" href="{% url 'playlist' %}">{{playlist.playlist_name}}</a>
-                                    </button>
-                                </form>
-                            {% endfor %}
-                            {% endif %}
-     
+                      
+                    <form method="post">
+                    {% csrf_token %}
+                        <button style="float: left;" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Playlist</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New Playlist</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Name</label>
+                                            <input type="text" class="form-control" id="recipient-name" name="playlist">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="Submit" class="btn btn-primary">Create Playlist</button>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>    -->
-                      <form method="post">
-                        {% csrf_token %}
-                            <select class="btn btn-dark" onChange="form.submit();" name="playlist">
-                                <option selected="selected" disabled>Add to playlist</option>
-                                <option value="new">Create new playlist</option>
-                                {% if playlists %}
+
+                        <select style="margin-left: 20px;" class="btn btn-dark" onChange="form.submit();" name="playlist">
+                            <option selected="selected" disabled>Add to playlist</option>
+                            {% if playlists %}
                                 {% for playlist in playlists %}
                                     <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>  
-                        <!-- <input class="btn btn-dark"type="submit" value="Submit">  -->
+                                {% endfor %}
+                            {% endif %}
+                        </select>  
                     </form>    
-        
                 </div>
             </div>
         </div>

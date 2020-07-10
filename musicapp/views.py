@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.db.models import Q
 from django.contrib import messages
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -22,6 +23,7 @@ def index(request):
 
 
 def detail(request, song_id):
+
     songs = Song.objects.filter(id=song_id).first()
     playlists = Playlist.objects.filter(user=request.user).values('playlist_name').distinct
     
