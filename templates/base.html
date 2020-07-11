@@ -32,9 +32,9 @@
             <h1><a href="{% url 'index' %}" class="navbar-brand">
             <strong>Music Player</strong></a></h1>
             <div class="collapse navbar-collapse">
+                <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">All Songs</a>
                 {% if request.user.is_active %}
                 <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
-                <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">All Songs</a>
                 <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a>
                 {% endif %}
             </div>
