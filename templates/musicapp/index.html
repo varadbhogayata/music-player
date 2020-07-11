@@ -1,7 +1,27 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
 {% block title %} MusicApp - Home {% endblock title %}
+
 {% block body %} 
+
+<style>
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: #f5f5f5;
+}
+</style>
 
 <br>
 <div class="container">
@@ -24,14 +44,14 @@
 <div class="container">
 
   <header class="section-heading">
-    <a href="#" class="btn btn-dark float-right">View all</a>
-    <h3 class="section-title">Trending Songs</h3>
+    <a href="{% url 'all_songs' %}" class="btn btn-dark float-right">View all</a>
+    <h3 class="section-title">All Songs</h3>
   </header><!-- sect-heading -->
 <hr>
-<!-- Movie list -->
+<!-- Song list -->
 <div class="row">
-  {% if songs %}
-  {% for song in songs %}
+  {% if all_songs %}
+  {% for song in all_songs %}
       <div class="col-md-3">
           <div class="thumbnail">
               <a href="{% url 'detail' song.id %}">
@@ -43,6 +63,47 @@
       {% endfor %}
       {% endif %}
 </div>
-
 </div>
+<br>
+{% if recent_songs %}
+
+<div class="container">
+  <header class="section-heading">
+    <a href="{% url 'recent' %}" class="btn btn-dark float-right">View all</a>
+    <h3 class="section-title">Recently viewed</h3>
+  </header><!-- sect-heading -->
+<hr>
+<!-- Movie list -->
+<div class="row">
+  {% for song in recent_songs %}
+      <div class="col-md-3">
+          <div class="thumbnail">
+              <a href="{% url 'detail' song.id %}">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="200" width="200">
+              </a>
+              <!-- <h5>{{movie.genre}}</h5> -->
+          </div>
+      </div>
+      {% endfor %}
+</div>
+</div>
+{% endif %}
+
+<footer class="footer">
+  <div class="player" style="background-color:#343a40!important">
+    <div class="left"><img src="{{last_played.song_img.url}}" height="80" width="80"></div>
+    <div class="right">
+       <div class="top">
+          <a class="song" >{{last_played.name}}</a>
+          <a class="artist" >{{last_played.album}}</a>
+       </div>
+       <div class="bottom">
+          <video controls="" _autoplay="" name="media"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></video>
+       </div>
+    </div>
+  </div>
+</footer>
+
 {% endblock body %}
+
+

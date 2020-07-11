@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %} MusicApp - Home {% endblock title %}
+
+{% block body %} 
+<br>
+<div class="container">
+  <header class="section-heading">
+    <h3 class="section-title">Recently viewed</h3>
+  </header>
+<hr>
+<!-- Song list -->
+<div class="row">
+  {% if recent_songs %}
+  {% for song in recent_songs %}
+      <div class="col-md-3">
+          <div class="thumbnail">
+              <a href="{% url 'detail' song.id %}">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="200" width="200">
+              </a>
+          </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+</div>
+
+</div>
+
+
+
+{% endblock body %}
