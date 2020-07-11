@@ -72,7 +72,9 @@ def detail(request, song_id):
             return redirect('detail', song_id=song_id)
         elif 'rm-fav' in request.POST:
             is_fav = True
-            query = Favourite(user=request.user, song=songs, is_fav=is_fav)
+            query = Favourite.objects.filter(user=request.user, song=songs, is_fav=is_fav)
+            print(f'user: {request.user}')
+            print(f'song: {songs.id} - {songs}')
             print(f'query: {query}')
             query.delete()
             messages.success(request, "Removed from favorite!")
@@ -107,8 +109,15 @@ def playlist_songs(request, playlist_name):
 
 
 def favourite(request):
+    songs = Song.objects.filter(favourite__user=request.user, favourite__is_fav=True).distinct()
+    print(f'songs: {songs}')
+    
     if request.method == "POST":
-        pass
+        song_id = list(request.POST.keys())[1]
+        favourite_song = Favourite.objects.filter(user=request.user, song__id=song_id, is_fav=True)
+        favourite_song.delete()
+        messages.success(request, "Removed from favourite!")
+    context = {'songs': songs}
     return render(request, 'musicapp/favourite.html', context=context)
 
 
