@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
 {% block title %} MusicApp - Detail {% endblock title %}
+{% block header %}
+    <style>
+        .heart {
+        font-size: 25px;
+            color:red;
+        }
+
+    </style>
+{% endblock header %}
 {% block body %} 
 <br>
 {% if messages %}
@@ -73,8 +82,23 @@
                                     <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
                                 {% endfor %}
                             {% endif %}
-                        </select>  
-                    </form>    
+                        </select>
+                    </form>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if is_favourite %}
+                        <input class="btn btn-dark" type="submit" value="Remove from Favourite" name=rm-fav> 
+                        {% else %}
+                        <input class="btn btn-dark" type="submit" value="Add to Favourite" name="add-fav">
+                        {% endif %}    
+                    </form>
+                        
+                            
+                    <!-- </form> -->
+                    <!-- <i style="margin-left: 10px;" class="heart fa fa-heart-o" name="favourite"></i> -->
+                    
+                        
                 </div>
             </div>
         </div>
@@ -99,3 +123,12 @@
     </div>
  </div> -->
 {% endblock body %}
+
+{% block js %} 
+<script>
+    $(".heart.fa").click(function() {
+    $(this).toggleClass("fa-heart fa-heart-o");
+    });
+
+</script>
+{% endblock js %}

@@ -22,8 +22,10 @@
                 <center><h4 style="margin-left:-50px">{{playlist.playlist_name}}</h4></center>
             </div>
         </div>
-        {% endfor %}
-        {% endif %}
+    {% endfor %}
+    {% else %}
+      <p>There isn't any playlist! First create new playlist.</p>
+    {% endif %}
   </div>
   
   </div>

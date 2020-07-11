@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth import authenticate
 
+
 class UserLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Enter Username'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'validate', 'placeholder': 'Enter Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
 
     def clean(self, *args, **kwargs):
@@ -27,12 +28,12 @@ class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
     password2 = forms.CharField(
         label='Password confirmation',
-        help_text='Enter the same password as before, for verification.', 
+        help_text='Enter the same password as before, for verification.',
         widget=forms.PasswordInput(attrs={'placeholder': 'Re Enter Password'}))
-    
+
     class Meta:
         model = User
-        fields = ['username','password1','password2',]
+        fields = ['username', 'password1', 'password2', ]
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
