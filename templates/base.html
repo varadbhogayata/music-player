@@ -37,8 +37,22 @@
                 <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
                 <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a>
                 {% endif %}
+
+                <!-- Example split danger button -->
+                <div class="btn-group mt-2 mx-1">
+                    <a type="button" href="{% url 'mymusic' %}" class="btn btn-outline-light">My Music</a>
+                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'favourite' %}">Show Favourites</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Create a Playlist</a>
+                        <a class="dropdown-item" href="{% url 'playlist' %}">Show Playlists</a>
+                        </div>
+                </div>
             </div>
-            
+                    
             <!-- {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">

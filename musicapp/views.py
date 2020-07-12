@@ -7,19 +7,22 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
+    # Display recent songs
+    if not request.user.is_anonymous:
+        recent = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
+    else:
+        recent = None
 
-    #Display recent songs
-    recent = list(Recent.objects.values('song_id').order_by('-id'))
-    if recent and not request.user.is_anonymous :
+    if recent and not request.user.is_anonymous:
         recent_id = [each['song_id'] for each in recent][:4]
-        recent_songs_unsorted = Song.objects.filter(id__in=recent_id,recent__user=request.user)
+        recent_songs_unsorted = Song.objects.filter(id__in=recent_id, recent__user=request.user)
         recent_songs = list()
         for id in recent_id:
             recent_songs.append(recent_songs_unsorted.get(id=id))
     else:
         recent_songs = None
 
-    #Last played song
+    # Last played song
     last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
     if last_played_list:
         last_played_id = last_played_list[0]['song_id']
@@ -27,16 +30,29 @@ def index(request):
     else:
         last_played_song = Song.objects.get(id=1)
 
-    #Display all songs
+    # Display all songs
     songs = Song.objects.all()
-    query = request.GET.get('q')
+    qs_singers = Song.objects.values_list('singer').all()
+    s_list = [s.split(',') for singer in qs_singers for s in singer]
+    all_singers = sorted(list(set([s.strip() for singer in s_list for s in singer])))
+    # qs_languages = Song.objects.values_list('language').all()
+    # all_genres = {g.strip() for genre in qs_languages for g in genre}
 
-    if query:
-        songs = Song.objects.filter(Q(name__icontains=query)).distinct()
+    if len(request.GET) > 0:
+        search_query = request.GET.get('q')
+        search_singer = request.GET.get('singers') or ''
+        songs = songs.filter(Q(name__icontains=search_query)).filter(Q(singer__icontains=search_singer)).distinct()
         context = {'all_songs': songs}
         return render(request, 'musicapp/index.html', context)
 
-    context = {'all_songs':songs,'recent_songs': recent_songs,'last_played':last_played_song}
+    all_languages = ['English', 'Hindi']
+    context = {
+        'all_songs': songs,
+        'recent_songs': recent_songs,
+        'last_played': last_played_song,
+        'all_singers': all_singers,
+        'all_languages': all_languages,
+    }
     return render(request, 'musicapp/index.html', context=context)
 
 
@@ -45,13 +61,12 @@ def detail(request, song_id):
     songs = Song.objects.filter(id=song_id).first()
 
     # Add data to recent database
-    if list(Recent.objects.filter(song=songs,user=request.user).values()):
-        data = Recent.objects.filter(song=songs,user=request.user)
+    if list(Recent.objects.filter(song=songs, user=request.user).values()):
+        data = Recent.objects.filter(song=songs, user=request.user)
         data.delete()
-    data = Recent(song=songs,user=request.user)
+    data = Recent(song=songs, user=request.user)
     data.save()
 
-    
     playlists = Playlist.objects.filter(user=request.user).values('playlist_name').distinct
     is_favourite = Favourite.objects.filter(user=request.user).filter(song=song_id).values('is_fav')
     print(f'song_id: {song_id}')
@@ -111,7 +126,7 @@ def playlist_songs(request, playlist_name):
 def favourite(request):
     songs = Song.objects.filter(favourite__user=request.user, favourite__is_fav=True).distinct()
     print(f'songs: {songs}')
-    
+
     if request.method == "POST":
         song_id = list(request.POST.keys())[1]
         favourite_song = Favourite.objects.filter(user=request.user, song__id=song_id, is_fav=True)
@@ -135,17 +150,16 @@ def all_songs(request):
 
 
 def recent(request):
-    
-    #Display recent songs
-    recent = list(Recent.objects.values('song_id').order_by('-id'))
-    if recent and not request.user.is_anonymous :
+    # Display recent songs
+    recent = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
+    if recent and not request.user.is_anonymous:
         recent_id = [each['song_id'] for each in recent]
-        recent_songs_unsorted = Song.objects.filter(id__in=recent_id,recent__user=request.user)
+        recent_songs_unsorted = Song.objects.filter(id__in=recent_id, recent__user=request.user)
         recent_songs = list()
         for id in recent_id:
             recent_songs.append(recent_songs_unsorted.get(id=id))
     else:
         recent_songs = None
 
-    context = {'recent_songs':recent_songs}
+    context = {'recent_songs': recent_songs}
     return render(request, 'musicapp/recent.html', context=context)
