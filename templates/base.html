@@ -35,10 +35,8 @@
                 <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">All Songs</a>
                 {% if request.user.is_active %}
                 <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
-                <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a>
-                {% endif %}
-
-                <!-- Example split danger button -->
+                <!-- <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a> -->
+                
                 <div class="btn-group mt-2 mx-1">
                     <a type="button" href="{% url 'mymusic' %}" class="btn btn-outline-light">My Music</a>
                     <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,10 +45,10 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'favourite' %}">Show Favourites</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Create a Playlist</a>
                         <a class="dropdown-item" href="{% url 'playlist' %}">Show Playlists</a>
                         </div>
                 </div>
+                {% endif %}
             </div>
             
    <!-- {% if user.is_authenticated %}
