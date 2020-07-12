@@ -7,10 +7,6 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    if not request.user.is_anonymous:
-        recent = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
-    else:
-        recent = None
 
     #Display recent songs
     if not request.user.is_anonymous :
@@ -119,6 +115,18 @@ def play_song(request, song_id):
     return redirect('all_songs')
 
 
+@login_required(login_url='login')
+def play_song_index(request, song_id):
+    songs = Song.objects.filter(id=song_id).first()
+    # Add data to recent database
+    if list(Recent.objects.filter(song=songs,user=request.user).values()):
+        data = Recent.objects.filter(song=songs,user=request.user)
+        data.delete()
+    data = Recent(song=songs,user=request.user)
+    data.save()
+    return redirect('index')
+
+
 def all_songs(request):
     songs = Song.objects.all()
 
@@ -170,11 +178,18 @@ def detail(request, song_id):
     data = Recent(song=songs,user=request.user)
     data.save()
 
+    #Last played song
+    last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
+    if last_played_list:
+        last_played_id = last_played_list[0]['song_id']
+        last_played_song = Song.objects.get(id=last_played_id)
+    else:
+        last_played_song = Song.objects.get(id=1)
+
+
     playlists = Playlist.objects.filter(user=request.user).values('playlist_name').distinct
     is_favourite = Favourite.objects.filter(user=request.user).filter(song=song_id).values('is_fav')
-    print(f'song_id: {song_id}')
-    print(f'request.user :{request.user}')
-    print(f'is_favourite: {is_favourite}')
+
     if request.method == "POST":
         if 'playlist' in request.POST:
             playlist_name = request.POST["playlist"]
@@ -198,7 +213,7 @@ def detail(request, song_id):
             messages.success(request, "Removed from favorite!")
             return redirect('detail', song_id=song_id)
 
-    context = {'songs': songs, 'playlists': playlists, 'is_favourite': is_favourite}
+    context = {'songs': songs, 'playlists': playlists, 'is_favourite': is_favourite,'last_played':last_played_song}
     return render(request, 'musicapp/detail.html', context=context)
 
 

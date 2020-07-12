@@ -5,6 +5,94 @@
 {% block body %} 
 
 <style>
+.hovereffect {
+width:100%;
+height:100%;
+float:left;
+overflow:hidden;
+position:relative;
+text-align:center;
+cursor:default;
+}
+
+.hovereffect .overlay {
+width:100%;
+height:100%;
+position:absolute;
+overflow:hidden;
+top:0;
+left:0;
+opacity:0;
+background-color:rgba(0,0,0,0.5);
+-webkit-transition:all .4s ease-in-out;
+transition:all .4s ease-in-out
+}
+
+.hovereffect img {
+display:block;
+position:relative;
+-webkit-transition:all .4s linear;
+transition:all .4s linear;
+}
+
+.hovereffect h2 {
+text-transform:uppercase;
+color:#fff;
+text-align:center;
+position:relative;
+font-size:17px;
+background:rgba(0,0,0,0.6);
+-webkit-transform:translatey(-100px);
+-ms-transform:translatey(-100px);
+transform:translatey(-100px);
+-webkit-transition:all .2s ease-in-out;
+transition:all .2s ease-in-out;
+padding:10px;
+}
+
+.hovereffect a.info {
+text-decoration:none;
+display:inline-block;
+text-transform:uppercase;
+color:#fff;
+border:1px solid #fff;
+background-color:transparent;
+opacity:0;
+filter:alpha(opacity=0);
+-webkit-transition:all .2s ease-in-out;
+transition:all .2s ease-in-out;
+margin:50px 0 0;
+padding:7px 14px;
+}
+
+.hovereffect a.info:hover {
+box-shadow:0 0 5px #fff;
+}
+
+.hovereffect:hover img {
+-ms-transform:scale(1.2);
+-webkit-transform:scale(1.2);
+transform:scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+opacity:1;
+filter:alpha(opacity=100);
+}
+
+.hovereffect:hover h2,.hovereffect:hover a.info {
+opacity:1;
+filter:alpha(opacity=100);
+-ms-transform:translatey(0);
+-webkit-transform:translatey(0);
+transform:translatey(0);
+}
+
+.hovereffect:hover a.info {
+-webkit-transition-delay:.2s;
+transition-delay:.2s;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -59,32 +147,6 @@ body {
 
 <hr>
 
-<!-- All Songs -->
-<div class="container">
-  <header class="section-heading">
-    <!-- <a href="{% url 'all_songs' %}" class="btn btn-primary float-right">View all</a> -->
-    <h3 class="section-title">All Songs</h3>
-  </header>
-<hr>
-<!-- Song list -->
-<div class="row" style="margin-right: 65px;margin-left:-15px">
-  {% if all_songs %}
-  {% for song in all_songs %}
-      <div class="col-md-2">
-          <div class="thumbnail">
-              <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
-              </a>
-          </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-      <a href="{% url 'all_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
-</div>
-</div>
-<br>
-<br>
-
 <!-- Recent Song -->
 {% if recent_songs %}
 <div class="container">
@@ -97,10 +159,12 @@ body {
 <div class="row" style="margin-right: 65px;margin-left:-15px">
   {% for song in recent_songs %}
       <div class="col-md-2">
-          <div class="thumbnail">
-              <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
-              </a>
+          <div class="hovereffect">
+            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+            <div class="overlay">
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+             </div>
           </div>
       </div>
       {% endfor %}
@@ -111,6 +175,36 @@ body {
 <br>
 <br>
 {% endif %}
+
+
+
+<!-- All Songs -->
+<div class="container">
+  <header class="section-heading">
+    <!-- <a href="{% url 'all_songs' %}" class="btn btn-primary float-right">View all</a> -->
+    <h3 class="section-title">All Songs</h3>
+  </header>
+<hr>
+<!-- Song list -->
+<div class="row" style="margin-right: 65px;margin-left:-15px">
+  {% if all_songs %}
+  {% for song in all_songs %}
+      <div class="col-md-2">
+          <div class="hovereffect">
+            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+            <div class="overlay">
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+             </div>
+          </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <a href="{% url 'all_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+</div>
+</div>
+<br>
+<br>
 
 
 <!-- Hindi Songs -->
@@ -124,10 +218,12 @@ body {
   {% if hindi_songs %}
   {% for song in hindi_songs %}
       <div class="col-md-2">
-          <div class="thumbnail">
-              <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
-              </a>
+          <div class="hovereffect">
+            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+            <div class="overlay">
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+             </div>
           </div>
       </div>
       {% endfor %}
@@ -150,10 +246,12 @@ body {
   {% if english_songs %}
   {% for song in english_songs %}
       <div class="col-md-2">
-          <div class="thumbnail">
-              <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
-              </a>
+          <div class="hovereffect">
+            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+            <div class="overlay">
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+             </div>
           </div>
       </div>
       {% endfor %}
