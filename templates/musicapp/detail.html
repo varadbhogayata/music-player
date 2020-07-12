@@ -40,7 +40,6 @@
                 <div class="details col-md-6">
                     <h3 class="product-title">{{songs.name}}</h3>
                     <h5>Album: {{songs.album}}</h5>
-                    <h6>Genre: {{songs.genre}}</h6>
                     <h5>Singer: {{songs.singer}}</h5>
                     <h6>Release Year: {{songs.year}}</h6>
                     <audio controls>
@@ -49,7 +48,7 @@
                       
                     <form method="post">
                     {% csrf_token %}
-                        <button style="float: left;" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Playlist</button>
+                        <button style="float: left;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Playlist</button>
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -75,7 +74,7 @@
                             </div>
                         </div>
 
-                        <select style="margin-left: 20px;" class="btn btn-dark" onChange="form.submit();" name="playlist">
+                        <select style="margin-left: 20px;" class="btn btn-primary" onChange="form.submit();" name="playlist">
                             <option selected="selected" disabled>Add to playlist</option>
                             {% if playlists %}
                                 {% for playlist in playlists %}

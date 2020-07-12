@@ -18,7 +18,7 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 100px;
+  height: 80px;
   background-color: #f5f5f5;
 }
 </style>
@@ -49,7 +49,7 @@ body {
                   </select>
                                 
                   <span class='input-group-btn'>
-                    <button type="submit" class="btn btn-dark">Search</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                   </span>
               </div>
           </div>
@@ -59,56 +59,113 @@ body {
 
 <hr>
 
+<!-- All Songs -->
 <div class="container">
-
   <header class="section-heading">
-    <a href="{% url 'all_songs' %}" class="btn btn-dark float-right">View all</a>
+    <!-- <a href="{% url 'all_songs' %}" class="btn btn-primary float-right">View all</a> -->
     <h3 class="section-title">All Songs</h3>
-  </header><!-- sect-heading -->
+  </header>
 <hr>
 <!-- Song list -->
-<div class="row">
+<div class="row" style="margin-right: 65px;margin-left:-15px">
   {% if all_songs %}
   {% for song in all_songs %}
-      <div class="col-md-3">
+      <div class="col-md-2">
           <div class="thumbnail">
               <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="200" width="200">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
               </a>
-              <!-- <h5>{{movie.genre}}</h5> -->
           </div>
       </div>
       {% endfor %}
       {% endif %}
+      <a href="{% url 'all_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
 </div>
 </div>
 <br>
-{% if recent_songs %}
+<br>
 
+<!-- Recent Song -->
+{% if recent_songs %}
 <div class="container">
   <header class="section-heading">
-    <a href="{% url 'recent' %}" class="btn btn-dark float-right">View all</a>
     <h3 class="section-title">Recently viewed</h3>
-  </header><!-- sect-heading -->
+  </header>
 <hr>
-<!-- Movie list -->
-<div class="row">
+
+<!-- Recent Song list -->
+<div class="row" style="margin-right: 65px;margin-left:-15px">
   {% for song in recent_songs %}
-      <div class="col-md-3">
+      <div class="col-md-2">
           <div class="thumbnail">
               <a href="{% url 'detail' song.id %}">
-                  <img src="{{ song.song_img.url}}" class="img-responsive" height="200" width="200">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
               </a>
-              <!-- <h5>{{movie.genre}}</h5> -->
           </div>
       </div>
       {% endfor %}
+      <a href="{% url 'recent' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+
 </div>
 </div>
+<br>
+<br>
 {% endif %}
 
+
+<!-- Hindi Songs -->
+<div class="container">
+  <header class="section-heading">
+    <h3 class="section-title">Hindi Songs</h3>
+  </header>
+<hr>
+<!-- Song list -->
+<div class="row" style="margin-right: 65px;margin-left:-15px">
+  {% if hindi_songs %}
+  {% for song in hindi_songs %}
+      <div class="col-md-2">
+          <div class="thumbnail">
+              <a href="{% url 'detail' song.id %}">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+              </a>
+          </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <a href="{% url 'hindi_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+
+</div>
+</div>
+<br>
+<br>
+
+<!-- English Songs -->
+<div class="container">
+  <header class="section-heading">
+    <h3 class="section-title">English Songs</h3>
+  </header>
+<hr>
+<!-- Song list -->
+<div class="row" style="margin-right: 65px;margin-left:-15px">
+  {% if english_songs %}
+  {% for song in english_songs %}
+      <div class="col-md-2">
+          <div class="thumbnail">
+              <a href="{% url 'detail' song.id %}">
+                  <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+              </a>
+          </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <a href="{% url 'english_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+</div>
+</div>
+<br>
+<br>
+
 <footer class="footer">
-  <div class="player" style="background-color:#343a40!important">
+  <div class="player">
     <div class="left"><img src="{{last_played.song_img.url}}" height="80" width="80"></div>
     <div class="right">
        <div class="top">
