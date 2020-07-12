@@ -25,13 +25,31 @@ body {
 
 <br>
 <div class="container">
-  <div class="col-md-6">
-    <form class="form-horizontal" role="search" method="get" action=''>
+  <div class="col-md-13">
+    <form id="searchform" class="form-horizontal" role="search" method="get" action=''>
           <div class="form-group">
               <div class="input-group">
                   <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
+
+                  <select name="languages" class="custom-select mx-2">
+                    <option selected="selected" disabled>Languages</option>
+                    {% if all_languages %}
+                        {% for language in all_languages %}
+                            <option value={{language}}>{{language}}</option>
+                        {% endfor %}
+                    {% endif %}
+                  </select>
+                  <select name="singers" class="custom-select mx-1">
+                    <option selected="selected" disabled>Singers</option>
+                    {% if all_singers %}
+                        {% for singer in all_singers %}
+                            <option value={{singer}}>{{singer}}</option>
+                        {% endfor %}
+                    {% endif %}
+                  </select>
+                                
                   <span class='input-group-btn'>
-                    <button type="button" class="btn btn-dark" type="submit">Search</button>
+                    <button type="submit" class="btn btn-dark">Search</button>
                   </span>
               </div>
           </div>
@@ -105,5 +123,3 @@ body {
 </footer>
 
 {% endblock body %}
-
-

@@ -88,9 +88,15 @@
                     <form method="post">
                         {% csrf_token %}
                         {% if is_favourite %}
-                        <input class="btn btn-dark" type="submit" value="Remove from Favourite" name=rm-fav> 
+                        <span class="d-flex align-items-center mt-2 ml-2">
+                            <i class="heart fa fa-heart my-auto"></i>
+                            <input style="margin-left: 10px;" type="submit" id="favbtn" class="btn btn-dark" name="rm-fav" value="Remove from Favorites">
+                        </span>
                         {% else %}
-                        <input class="btn btn-dark" type="submit" value="Add to Favourite" name="add-fav">
+                        <span class="d-flex align-items-center mt-2 ml-2">
+                            <i class="heart fa fa-heart my-auto"></i>
+                            <input style="margin-left: 10px;" type="submit" id="favbtn" class="btn btn-dark" name="add-fav" value="Add to Favorites">
+                        </span>
                         {% endif %}    
                     </form>
                         
@@ -126,9 +132,21 @@
 
 {% block js %} 
 <script>
-    $(".heart.fa").click(function() {
-    $(this).toggleClass("fa-heart fa-heart-o");
+    // $(".heart.fa").click(function() {
+    // $(this).toggleClass("fa-heart fa-heart-o");
+    // });
+
+    $("button").click(function() {
+        $(".heart.fa").toggleClass("fa-heart fa-heart-o");
+        // $(this).toggleClass("fa-heart fa-heart-o");
     });
+
+    // $(document).ready(function(){
+    //     $("button").click(function(){
+    //         $("span.favbtn").toggleClass("fa-heart fa-heart-o");
+    //     });
+    // });
+
 
 </script>
 {% endblock js %}
