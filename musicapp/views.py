@@ -107,7 +107,7 @@ def english_songs(request):
     context = {'english_songs':english_songs}
     return render(request, 'musicapp/english_songs.html',context=context)
 
-
+@login_required(login_url='login')
 def play_song(request, song_id):
     songs = Song.objects.filter(id=song_id).first()
     # Add data to recent database
