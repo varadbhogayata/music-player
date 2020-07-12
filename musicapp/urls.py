@@ -14,7 +14,8 @@ urlpatterns = [
     path('hindi_songs/', views.hindi_songs, name='hindi_songs'),
     path('english_songs/', views.english_songs, name='english_songs'),
     path('play/<int:song_id>/', views.play_song, name='play_song'),
+    path('play_song/<int:song_id>/', views.play_song_index, name='play_song_index'),
 
-
+    
 
 ]

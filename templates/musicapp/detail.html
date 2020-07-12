@@ -7,7 +7,22 @@
         font-size: 25px;
             color:red;
         }
-
+        html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background-color: #f5f5f5;
+}
     </style>
 {% endblock header %}
 {% block body %} 
@@ -30,7 +45,7 @@
     <div class="card">
         <div class="container-fliud">
             <div class="wrapper row">
-                <div class="preview col-md-6">
+                <div class="preview col-md-5">
                     
                     <div class="preview-pic tab-content">
                       <div class="tab-pane active"><img src="{{songs.song_img.url}}" height="300" width="300"></div>
@@ -38,9 +53,10 @@
                     
                 </div>
                 <div class="details col-md-6">
+                    <br>
                     <h3 class="product-title">{{songs.name}}</h3>
-                    <h5>Album: {{songs.album}}</h5>
-                    <h5>Singer: {{songs.singer}}</h5>
+                    <h6>Album: {{songs.album}}</h6>
+                    <h6>Singer: {{songs.singer}}</h6>
                     <h6>Release Year: {{songs.year}}</h6>
                     <audio controls>
                         <source src="{{ songs.song_file.url }}" type="audio/mpeg">
@@ -73,29 +89,35 @@
                                 </div>
                             </div>
                         </div>
-
-                        <select style="margin-left: 20px;" class="btn btn-primary" onChange="form.submit();" name="playlist">
-                            <option selected="selected" disabled>Add to playlist</option>
+                    </form>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <select style="margin-left: 10px;width: 160px;" class="btn btn-primary" onChange="form.submit();" name="playlist">
+                            <option selected="selected" disabled >Add to Playlist</option>
                             {% if playlists %}
                                 {% for playlist in playlists %}
                                     <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
                                 {% endfor %}
                             {% endif %}
-                        </select>
-                    </form>
+                        </select>  
+                    </form>    
 
                     <form method="post">
                         {% csrf_token %}
                         {% if is_favourite %}
-                        <span class="d-flex align-items-center mt-2 ml-2">
-                            <i class="heart fa fa-heart my-auto"></i>
-                            <input type="submit" id="favbtn" class="btn btn-primary" name="rm-fav" value="Remove from Favorites">
+                        <span class="d-flex align-items-center mt-2 ml-2" >
+                            <!-- <i class="heart fa fa-heart my-auto"></i> -->
+                            <button type="submit" name="rm-fav" class="btn btn-primary btn-block" style="width: 332px;margin-left:-8px">Remove from Favourites</button>
                         </span>
                         {% else %}
                         <span class="d-flex align-items-center mt-2 ml-2">
-                            <i class="heart fa fa-heart my-auto"></i>
-                            <input type="submit" id="favbtn" class="btn btn-primary" name="add-fav" value="Add to Favorites">
+                            <!-- <i class="heart fa fa-heart my-auto"></i> -->
+                            <button type="submit" name="add-fav" class="btn btn-primary btn-block" style="width: 332px;margin-left:-8px">Add to Favourites</button>
+
+                            <!-- <input type="submit" id="favbtn" class="btn btn-primary" name="add-fav" value="Add to Favourites"> -->
                         </span>
+                        
                         {% endif %}    
                     </form>
                         
@@ -109,6 +131,22 @@
         </div>
     </div>
 </div>
+
+<footer class="footer">
+    <div class="player">
+      <div class="left"><img src="{{last_played.song_img.url}}" height="80" width="80"></div>
+      <div class="right">
+         <div class="top">
+            <a class="song" >{{last_played.name}}</a>
+            <a class="artist" >{{last_played.album}}</a>
+         </div>
+         <div class="bottom">
+            <video controls="" _autoplay="" name="media"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></video>
+         </div>
+      </div>
+    </div>
+  </footer>
+
 
 <!-- <br>
 <br>
