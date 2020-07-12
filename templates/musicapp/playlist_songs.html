@@ -18,7 +18,7 @@
 <br>
 <br>
 <center><h3>Playlist-{{playlist_name}}</h3></center>
-<table class="table table-hover table-dark">
+<table class="table table-hover table-primary">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -46,7 +46,7 @@
         <td>
           <form method="post">
             {% csrf_token %}
-            <input class="btn btn-dark" type="submit" value="Remove" name={{song.id}}> 
+            <input class="btn btn-primary" type="submit" value="Remove" name={{song.id}}> 
             </form>
         </td>
       </tr>

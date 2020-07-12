@@ -11,5 +11,10 @@ urlpatterns = [
     path('favourite/', views.favourite, name='favourite'),
     path('all_songs/', views.all_songs, name='all_songs'),
     path('recent/', views.recent, name='recent'),
+    path('hindi_songs/', views.hindi_songs, name='hindi_songs'),
+    path('english_songs/', views.english_songs, name='english_songs'),
+    path('play/<int:song_id>/', views.play_song, name='play_song'),
+
+
 
 ]
