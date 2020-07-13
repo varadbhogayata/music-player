@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-md navbar-primary bg-primary">
         <div class="container">
             <h1><a href="{% url 'index' %}" class="navbar-brand">
-            <strong style="color:blanchedalmond">GALVANIC</strong></a></h1>
+            <strong style="color:white">GALVANIC</strong></a></h1>
             <div class="collapse navbar-collapse">
                 <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">All Songs</a>
                 {% if request.user.is_active %}
@@ -43,9 +43,9 @@
                     <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'favourite' %}">Show Favourites</a>
+                        <a class="dropdown-item" href="{% url 'playlist' %}">Playlists</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'playlist' %}">Show Playlists</a>
+                        <a class="dropdown-item" href="{% url 'favourite' %}">Favourite Songs</a>
                         </div>
                 </div>
                 {% endif %}
