@@ -20,12 +20,19 @@ def index(request):
         recent = None
         recent_songs = None
 
+    first_time = False
     #Last played song
-    last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
-    if last_played_list:
-        last_played_id = last_played_list[0]['song_id']
-        last_played_song = Song.objects.get(id=last_played_id)
+    if not request.user.is_anonymous:
+        last_played_list = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
+        if last_played_list:
+            last_played_id = last_played_list[0]['song_id']
+            last_played_song = Song.objects.get(id=last_played_id)
+        else:
+            first_time = True
+            last_played_song = Song.objects.get(id=1)
+
     else:
+        first_time = True
         last_played_song = Song.objects.get(id=1)
 
     #Display all songs
@@ -72,6 +79,7 @@ def index(request):
         'last_played':last_played_song,
         'all_singers': all_singers,
         'all_languages': all_languages,
+        'first_time': first_time,
     }
     return render(request, 'musicapp/index.html', context=context)
 
