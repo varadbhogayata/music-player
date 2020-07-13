@@ -1,0 +1,423 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %} MusicApp - Detail {% endblock title %}
+{% block header %}
+    <style>
+        .heart {
+        font-size: 25px;
+            color:red;
+        }
+
+        html {
+        position: relative;
+        min-height: 100%;
+        }
+        body {
+        /* Margin bottom by footer height */
+        margin-bottom: 0px;
+        }
+        .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        /* Set the fixed height of the footer here */
+        height: 80px;
+        background-color: #f5f5f5;
+        }
+
+        #audioPlayer {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            position: fixed;
+            right: 2rem;
+            bottom: .5rem;
+            left: 19.5rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 1rem;
+            height: 4.5rem;
+            z-index: 1004;
+            -webkit-box-shadow: 0 1px 12px 2px rgba(0, 0, 0, .15);
+            box-shadow: 0 1px 12px 2px rgba(0, 0, 0, .15);
+            -webkit-transition: .4s all ease-in;
+            -o-transition: .4s all ease-in;
+            transition: .4s all ease-in;
+        }
+
+
+    </style>
+{% endblock header %}
+{% block body %} 
+<br>
+{% if messages %}
+    <ul class="messages" style="width: 600px;margin-left:400px">
+        {% for message in messages %}
+            <div class="alert alert-success">
+              <strong>Success!</strong> {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+<br>
+<hr>
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                      <div class="tab-pane active"><img src="{{songs.song_img.url}}" height="300" width="300"></div>
+                    </div>
+                    
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title">{{songs.name}}</h3>
+                    <h5>Album: {{songs.album}}</h5>
+                    <h5>Singer: {{songs.singer}}</h5>
+                    <h6>Release Year: {{songs.year}}</h6>
+                    <audio controls>
+                        <source src="{{ songs.song_file.url }}" type="audio/mpeg">
+                    </audio>  
+                    
+                    <div class="mt-4">
+                        <a href="javascript:void(0);"
+                           class="btn btn-pill btn-air btn-bold btn-danger"
+                           id="play-pause"
+                           data-audio='{"name": "{{ songs.name }}", "artist": "{{ songs.singer }}", 
+                           "album": "{{songs.album}}", "url": "{{ songs.song_file.url }}", 
+                           "cover_art_url": "{{ songs.song_img.url }}"}'>
+                            Play
+                        </a>
+                    </div>
+
+                    <form method="post">
+                    {% csrf_token %}
+                        <button style="float: left;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Playlist</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New Playlist</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Name</label>
+                                            <input type="text" class="form-control" id="recipient-name" name="playlist">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="Submit" class="btn btn-primary">Create Playlist</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <select style="margin-left: 20px;" class="btn btn-primary" onChange="form.submit();" name="playlist">
+                            <option selected="selected" disabled>Add to playlist</option>
+                            {% if playlists %}
+                                {% for playlist in playlists %}
+                                    <option value={{playlist.playlist_name}}>{{playlist.playlist_name}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </form>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if is_favourite %}
+                        <span class="d-flex align-items-center mt-2 ml-2">
+                            <i class="heart fa fa-heart my-auto"></i>
+                            <input type="submit" id="favbtn" class="btn btn-primary" name="rm-fav" value="Remove from Favorites">
+                        </span>
+                        {% else %}
+                        <span class="d-flex align-items-center mt-2 ml-2">
+                            <i class="heart fa fa-heart my-auto"></i>
+                            <input type="submit" id="favbtn" class="btn btn-primary" name="add-fav" value="Add to Favorites">
+                        </span>
+                        {% endif %}    
+                    </form>                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div id="audioPlayer" class="player-primary" style="visibility: visible;">
+        <div id="progress-container">
+            <input type="range" class="amplitude-song-slider">
+            <progress id="song-played-progress" class="audio-progress audio-progress--played amplitude-song-played-progress" value="0.16043427647691885"></progress>
+            <progress id="song-buffered-progress" class="audio-progress audio-progress--buffered amplitude-buffered-progress" value="1"></progress>
+        </div>
+        <div class="audio">
+            <div class="song-image">
+                <img data-amplitude-song-info="cover_art_url" src="{{songs.song_img.url}}" alt="">
+            </div>
+            <div class="song-info pl-3">
+                <span class="song-name d-inline-block text-truncate" data-amplitude-song-info="name">{{songs.name}}</span>
+                <span class="song-artists d-block text-muted" data-amplitude-song-info="artist">{{songs.singer}}</span>
+            </div>
+        </div>
+        <div class="audio-controls">
+            <div class="audio-controls--left d-flex mr-auto">
+                <button class="btn btn-icon-only amplitude-repeat amplitude-repeat-off">
+                    <i class="ion-md-sync"></i>
+                    <!-- <i class="fa fa-pause"></i> -->
+                </button>
+            </div>
+            <div class="audio-controls--main d-flex">
+                <button class="btn btn-icon-only amplitude-prev">
+                    <i class="ion-md-skip-backward"></i>
+                </button>
+                <button class="btn btn-air btn-pill btn-default btn-icon-only amplitude-play-pause amplitude-paused">
+                    <i class="ion-md-play"></i> <i class="ion-md-pause"></i>
+                </button>
+                <button class="btn btn-icon-only amplitude-next">
+                    <i class="ion-md-skip-forward"></i>
+                </button>
+            </div>
+            <div class="audio-controls--right d-flex ml-auto">
+                <button class="btn btn-icon-only amplitude-shuffle amplitude-shuffle-off">
+                    <i class="ion-md-shuffle"></i>
+                </button>
+            </div>
+        </div>
+        <div class="audio-info d-flex align-items-center pr-4">
+            <span class="mr-4">
+                <span class="amplitude-current-minutes">00</span>:<span class="amplitude-current-seconds">44</span> /
+                <span class="amplitude-duration-minutes">04</span>:<span class="amplitude-duration-seconds">40</span>
+            </span>
+            <div class="audio-volume dropdown">
+                <button class="btn btn-icon-only" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ion-md-volume-low"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right volume-dropdown-menu">
+                    <input type="range" class="amplitude-volume-slider">
+                </div>
+            </div>
+            <div class="dropleft">
+                <button class="btn btn-icon-only" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="la la-ellipsis-v"></i></button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <a href="javascript:void(0);" class="dropdown-link">
+                            <i class="la la-heart-o"></i>
+                            <span>Favorite</span>
+                        </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="javascript:void(0);" class="dropdown-link">
+                            <i class="la la-plus"></i> <span>Add to Playlist</span>
+                        </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="javascript:void(0);" class="dropdown-link">
+                            <i class="la la-download"></i> <span>Download</span>
+                        </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="javascript:void(0);" class="dropdown-link">
+                            <i class="la la-share-alt"></i> <span>Share</span>
+                        </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="#" class="dropdown-link">
+                            <i class="la la-info-circle"></i> <span>Song Info</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-icon-only" id="playList"><i class="ion-md-musical-note"></i></button>
+        </div>
+    </div>
+</footer>
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'musicapp/js/custom.js' %}"></script>
+<script src="{% static 'musicapp/js/amplitude.min.js' %}"></script>
+<script src="{% static 'musicapp/js/scripts.bundle.js' %}"></script>
+<script src="{% static 'musicapp/js/select2.full.min.js' %}"></script>
+<script src="{% static 'musicapp/js/vendors.bundle.js' %}"></script>
+<script src="{% static 'musicapp/js/wavesurfer.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.0.2/dist/amplitude.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tag-it/2.0/js/tag-it.min.js"></script>
+
+<script type="text/javascript">
+
+    let favorite_btn = $('#btn-favorite');
+
+    favorite_btn.on('click', function () {
+        let user = $(this).data('user');
+
+        if (user) {
+
+            let song_id = $(this).data('song-id');
+            let decision = $(this).data('decision');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRFToken': csrfmiddlewaretoken
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).data('url'),
+                data: {
+                    song_id,
+                    decision,
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status === true) {
+                        if (decision === 'make') {
+                            favorite_btn.attr('data-decision', 'remove');
+                            favorite_btn.find('i.la-heart-o').removeClass('la-heart-o').addClass('la-heart');
+                        } else {
+                            favorite_btn.attr('data-decision', 'make');
+                            favorite_btn.find('i.la-heart').removeClass('la-heart').addClass('la-heart-o');
+                        }
+                        toastr.options = {
+                            "positionClass": "toast-bottom-right",
+                        };
+                        toastr.success(res.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            toastr.options = {
+                "positionClass": "toast-bottom-right",
+            };
+            toastr.warning('Please login to continue');
+        }
+    });
+
+    Amplitude.init({
+        "songs": [{
+        name: "{{ songs.name }}",
+        artist: "{{ songs.singer }}",
+        album: "{{ songs.album }}",
+        url: "{{ songs.song_file.url }}",
+        cover_art_url: "{{ songs.song_img.url }}"
+        }],
+        "bindings": {
+            32: 'play_pause'
+        },
+        "callbacks": {
+            'play': function () {
+                wavesurfer.play();
+                wavesurfer.setCurrentTime(Amplitude.getSongPlayedSeconds());
+            },
+            'timeupdate': function () {
+                wavesurfer.setCurrentTime(Amplitude.getSongPlayedSeconds());
+            },
+            'seeked': function () {
+                wavesurfer.setCurrentTime(Amplitude.getSongPlayedSeconds());
+            },
+            'pause': function () {
+                wavesurfer.setCurrentTime(Amplitude.getSongPlayedSeconds());
+                wavesurfer.pause();
+            }
+        }
+    });
+
+    window.onkeydown = function (e) {
+        return !(e.keyCode === 32);
+    };
+
+    document.getElementById('song-played-progress').addEventListener('click', function (e) {
+        let offset = this.getBoundingClientRect();
+        let x = e.pageX - offset.left;
+
+        Amplitude.setSongPlayedPercentage((parseFloat(x) / parseFloat(this.offsetWidth)) * 100);
+    });
+
+    let wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#733ce6',
+        progressColor: '#bfbfbf',
+        height: 150,
+        scrollParent: false,
+        responsive: true,
+    });
+
+    wavesurfer.on('loading', function (integer) {
+        $('#waveform-load').html("Generating waves.. (" + integer + '%)');
+    });
+
+    wavesurfer.on('ready', function (percents) {
+        wavesurfer.setVolume(0);
+        $('#waveform-load').empty();
+    });
+
+    $("a[data-audio]").on("click", function () {
+        $('#audioPlayer').css('visibility', 'visible');
+        if ($(this).text().trim() === 'Play') {
+            $('.amplitude-play-pause').addClass('amplitude-playing').removeClass('amplitude-paused');
+            $(this).text('Pause');
+        } else {
+            $('.amplitude-play-pause').removeClass('amplitude-playing').addClass('amplitude-paused');
+            $(this).text('Play');
+        }
+
+        if ($('.amplitude-play-pause').hasClass('amplitude-playing')) {
+            Amplitude.play();
+        } else {
+            Amplitude.pause();
+        }
+    });
+
+    wavesurfer.on('seek', function (seeks) {
+    });
+
+    wavesurfer.load('{{ songs.song_file.url }}');
+
+    $('.amplitude-play-pause').on('click', function () {
+        if ($(this).hasClass('amplitude-playing')) {
+            Amplitude.play();
+            $('#play-pause').text('Pause');
+        } else {
+            Amplitude.pause();
+            $('#play-pause').text('Play');
+        }
+    });
+
+    let volumeIconClick = function () {
+
+        $(document).on("click", ".volume-dropdown-menu", function (s) {
+            s.stopPropagation();
+        });
+
+        let s = $('.audio-volume input[type="range"]'), t = $(".audio-volume .btn");
+        s.on("change", function () {
+            let s = $(this), e = parseInt(s.val(), 10);
+            0 === e ? t.html('<i class="ion-md-volume-mute"></i>') : e > 0 && e < 70 ? t.html('<i class="ion-md-volume-low"></i>') : e > 70 && t.html('<i class="ion-md-volume-high"></i>')
+        })
+    };
+
+    volumeIconClick();
+</script>
+
+{% endblock js %}
