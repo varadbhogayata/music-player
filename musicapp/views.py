@@ -167,12 +167,15 @@ def play_recent_song(request, song_id):
 def all_songs(request):
     songs = Song.objects.all()
 
+    first_time = False
     #Last played song
-    last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
-    if last_played_list:
-        last_played_id = last_played_list[0]['song_id']
-        last_played_song = Song.objects.get(id=last_played_id)
+    if not request.user.is_anonymous:
+        last_played_list = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
+        if last_played_list:
+            last_played_id = last_played_list[0]['song_id']
+            last_played_song = Song.objects.get(id=last_played_id)
     else:
+        first_time = True
         last_played_song = Song.objects.get(id=1)
 
     query = request.GET.get('q')
@@ -182,7 +185,7 @@ def all_songs(request):
         context = {'songs': songs}
         return render(request, 'musicapp/all_songs.html', context)
 
-    context = {'songs': songs,'last_played':last_played_song}
+    context = {'songs': songs,'last_played':last_played_song,'first_time':first_time}
     return render(request, 'musicapp/all_songs.html', context=context)
 
 
@@ -258,7 +261,7 @@ def detail(request, song_id):
             return redirect('detail', song_id=song_id)
 
     context = {'songs': songs, 'playlists': playlists, 'is_favourite': is_favourite,'last_played':last_played_song}
-    return render(request, 'musicapp/test_detail2.html', context=context)
+    return render(request, 'musicapp/detail.html', context=context)
 
 
 def mymusic(request):

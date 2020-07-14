@@ -32,13 +32,12 @@
             <h1><a href="{% url 'index' %}" class="navbar-brand">
             <strong style="color:white">GALVANIC</strong></a></h1>
             <div class="collapse navbar-collapse">
-                <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">All Songs</a>
+                <a href="{% url 'index' %}" class="btn btn-outline-light mt-2 mx-1">HOME</a>
+                <a href="{% url 'all_songs' %}" class="btn btn-outline-light mt-2 mx-1">ALL SONGS</a>
                 {% if request.user.is_active %}
-                <!-- <a href="#" class="btn btn-light mt-2 mx-1">Playlist</a> -->
-                <!-- <a href="{% url 'mymusic' %}" class="btn btn-outline-light mt-2 mx-1">My Music</a> -->
                 
                 <div class="btn-group mt-2 mx-1">
-                    <a type="button" href="{% url 'mymusic' %}" class="btn btn-outline-light">My Music</a>
+                    <a type="button" href="{% url 'mymusic' %}" class="btn btn-outline-light">MY MUSIC</a>
                     <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                     </button>
