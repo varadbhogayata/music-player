@@ -72,7 +72,8 @@
     background: #F9F9F9;
     color: #000;
     min-height: 80px;
-    max-height: 80px;
+    max-height: 150px;
+    height: 110px;
     display: -webkit-box;
     display: flex;
     -webkit-box-orient: horizontal;
