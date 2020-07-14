@@ -117,27 +117,11 @@ body {
     <form id="searchform" class="form-horizontal" role="search" method="get" action=''>
           <div class="form-group">
               <div class="input-group">
-                  <input type="text" class="form-control input-lg " name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
-
-                  <select name="languages" class="custom-select mx-2">
-                    <option selected="selected" disabled>Languages</option>
-                    {% if all_languages %}
-                        {% for language in all_languages %}
-                            <option value={{language}}>{{language}}</option>
-                        {% endfor %}
-                    {% endif %}
-                  </select>
-                  <select name="singers" class="custom-select mx-1">
-                    <option selected="selected" disabled>Singers</option>
-                    {% if all_singers %}
-                        {% for singer in all_singers %}
-                            <option value={{singer}}>{{singer}}</option>
-                        {% endfor %}
-                    {% endif %}
-                  </select>
+                  <input type="text" class="form-control input-lg " name="q" style="border-radius: 5px;"
+                  value="{{ request.GET.q }}" placeholder= "Search Songs "/>
                                 
-                  <span class='input-group-btn'>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                  <span class='input-group-btn mx-2'>
+                    <button type="submit" style="border-radius: 5px;" class="btn btn-primary">Search</button>
                   </span>
               </div>
           </div>

@@ -53,32 +53,18 @@ def index(request):
     sliced_ids = [each['id'] for each in songs_english][:5]
     indexpage_english_songs = Song.objects.filter(id__in=sliced_ids)
 
-    # Display all songs
-    songs = Song.objects.all()
-    qs_singers = Song.objects.values_list('singer').all()
-    s_list = [s.split(',') for singer in qs_singers for s in singer]
-    all_singers = sorted(list(set([s.strip() for singer in s_list for s in singer])))
-    # qs_languages = Song.objects.values_list('language').all()
-    # all_languages = sorted(list(set([l.strip() for lang in qs_languages for l in lang])))
-    
     if len(request.GET) > 0:
         search_query = request.GET.get('q')
-        search_singer = request.GET.get('singers') or ''
-        # search_language = request.GET.get('languages') or ''
-        filtered_songs = songs.filter(Q(name__icontains=search_query)).filter(Q(singer__icontains=search_singer)).distinct()
+        filtered_songs = songs.filter(Q(name__icontains=search_query)).distinct()
         context = {'all_songs': filtered_songs}
         return render(request, 'musicapp/index.html', context)
 
-    all_languages = ['English', 'Hindi']
-    
     context = {
         'all_songs':indexpage_songs,
         'recent_songs': recent_songs,
         'hindi_songs':indexpage_hindi_songs,
         'english_songs':indexpage_english_songs,
         'last_played':last_played_song,
-        'all_singers': all_singers,
-        'all_languages': all_languages,
         'first_time': first_time,
     }
     return render(request, 'musicapp/index.html', context=context)
@@ -178,14 +164,29 @@ def all_songs(request):
         first_time = True
         last_played_song = Song.objects.get(id=1)
 
-    query = request.GET.get('q')
-
-    if query:
-        songs = Song.objects.filter(Q(name__icontains=query)).distinct()
-        context = {'songs': songs}
+    
+    # apply search filters
+    qs_singers = Song.objects.values_list('singer').all()
+    s_list = [s.split(',') for singer in qs_singers for s in singer]
+    all_singers = sorted(list(set([s.strip() for singer in s_list for s in singer])))
+    qs_languages = Song.objects.values_list('language').all()
+    all_languages = sorted(list(set([l.strip() for lang in qs_languages for l in lang])))
+    
+    if len(request.GET) > 0:
+        search_query = request.GET.get('q')
+        search_singer = request.GET.get('singers') or ''
+        search_language = request.GET.get('languages') or ''
+        filtered_songs = songs.filter(Q(name__icontains=search_query)).filter(Q(language__icontains=search_language)).filter(Q(singer__icontains=search_singer)).distinct()
+        context = {'songs': filtered_songs}
         return render(request, 'musicapp/all_songs.html', context)
 
-    context = {'songs': songs,'last_played':last_played_song,'first_time':first_time}
+    context = {
+        'songs': songs,
+        'last_played':last_played_song,
+        'first_time':first_time,
+        'all_singers': all_singers,
+        'all_languages': all_languages,
+        }
     return render(request, 'musicapp/all_songs.html', context=context)
 
 
@@ -209,6 +210,12 @@ def recent(request):
             recent_songs.append(recent_songs_unsorted.get(id=id))
     else:
         recent_songs = None
+
+    if len(request.GET) > 0:
+        search_query = request.GET.get('q')
+        filtered_songs = recent_songs_unsorted.filter(Q(name__icontains=search_query)).distinct()
+        context = {'recent_songs': filtered_songs}
+        return render(request, 'musicapp/recent.html', context)
 
     context = {'recent_songs':recent_songs,'last_played':last_played_song}
     return render(request, 'musicapp/recent.html', context=context)

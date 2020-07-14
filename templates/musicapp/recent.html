@@ -116,10 +116,27 @@
 
 <br>
 <div class="container">
+
+  <form class="form-horizontal" role="search" method="get" action=''>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group">
+          <input type="text" class="form-control input-lg " name="q" style="border-radius: 5px;"
+          value="{{ request.GET.q }}" placeholder= "Search Songs "/>               
+          <span class='input-group-btn mx-2'>
+            <button type="submit" style="border-radius: 5px;" class="btn btn-primary">Search</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <hr> -->
   <header class="section-heading">
     <h5 class="section-title">RECENTLY PLAYED</h5>
   </header>
   <hr>
+
+  
   <!-- Song list -->
   <div class="row" style="margin-right: 65px;margin-left:-15px;">
     {% if recent_songs %}
