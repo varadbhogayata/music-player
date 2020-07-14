@@ -261,9 +261,12 @@ body {
 </div>
 <br>
 <br>
+<br>
+<br>
+<br>
 
 <footer class="footer">
-  <div class="player">
+  <div class="player" id="audio-player">
     <div class="left"><img src="{{last_played.song_img.url}}" height="90" width="90"></div>
     <div class="right">
        <div class="top">
@@ -271,13 +274,15 @@ body {
           <a class="artist" style='margin-left: 20px;'>{{last_played.album}}</a>
        </div>
        <div class="bottom">
+          <a class='btn-backward'><i class="fa fa-fast-backward"></i></a>
+          <a class='btn-forward' style="margin-left: 10px;"><i class="fa fa-fast-forward"></i></a>
           <!-- <video controls="" _autoplay="true" name="media"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></video> -->
             {% if first_time %}
-              <audio controls style="margin-left:10px;margin-top: -3px;width:1270px">  
+              <audio id='audio-bar' controls preload="metadata" loop="true" style="margin-left:10px;margin-top: -3px;width:1270px">  
                 <source src="{{last_played.song_file.url}}" type="audio/mpeg">  
               </audio>  
             {% else %}
-            <audio controls autoplay style="margin-left:10px;margin-top: -3px;width:1270px">  
+            <audio id='audio-bar' controls preload="metadata" autoplay loop="true" style="margin-left:10px;margin-top: -3px;width:1270px">  
               <source src="{{last_played.song_file.url}}" type="audio/mpeg">  
             </audio>  
             {% endif %}
@@ -287,5 +292,104 @@ body {
   </div>
 </footer>
 
-
 {% endblock body %}
+{% block js %}
+<script type="text/javascript">
+    
+  let audio = document.getElementById('audio-bar');
+  // let audio = new Audio('{{ songs.song_file.url }}');
+  let isPaused = audio.paused;
+  let isPlaying = !isPaused;
+
+  console.log('Check if audio is paused: ', isPaused);
+  console.log('Check if audio is playing: ', isPlaying);
+  // control the audio
+  // audio.pause();
+  // audio.play();
+
+  // audio.volume = 1; //100%
+  // audio.volume = 0.5; //50%
+
+  //currentTime
+  // audio.CurrentTime;
+
+  //rewind
+  // myAudio.currentTime = 0;
+  // myAudio.play();
+
+  //fast forward
+  // myAudio.currentTime = 30;
+  // myAudio.play();
+
+  // duration
+  // audio.duration;
+
+  // important audio events
+  audio.addEventListener('play', function(ev){
+      console.log("audio started playing");
+  });
+
+  audio.addEventListener('pause', function(ev){
+      console.log("audio paused. Do you want to change track");
+  });
+
+  audio.addEventListener('ended', function(ev){
+      console.log("audio Ended"); 
+   // ask user about re-playing the same song & other operations
+  });
+
+  // time backward forward
+  audio.addEventListener('timeupdate', function(ev){
+      console.log("Current time", this.currentTime);
+  });
+
+  audio.addEventListener('volumechange', function(ev){
+      let currentVolume = this.volume;
+      console.log("Current Volume", currentVolume)
+      // if(currentVolume > .75) {
+      //  alert("Over Sound may damage your ears");
+      //  }
+  });
+
+  $(function () {
+  // var audio = document.getElementById('audio-player');
+  var intervalo;
+  // $('.btn-forward').mousedown(function () {
+  //     audio.pause();
+  //     intervalo = setInterval(function () {
+  //         audio.currentTime += 10;
+  //     }, 200);
+  // }).mouseup(function () {
+  //     clearInterval(intervalo);
+  //     audio.play();
+  // });
+
+  $('.btn-forward').click(function () {
+      // audio.pause();
+      
+      audio.currentTime += 3;
+      
+      // clearInterval(intervalo);
+      // audio.play();
+  });
+
+  // $('.btn-backward').mousedown(function () {
+  //     intervalo = setInterval(function () {
+  //         audio.pause();
+  //         audio.currentTime -= 10;
+  //     }, 200);
+  // }).mouseup(function () {
+  //     clearInterval(intervalo);
+  //     audio.play();
+  // });
+
+  $('.btn-backward').click(function () {
+     
+    audio.currentTime -= 3;
+     
+  });
+
+});
+</script>
+
+{% endblock js %}

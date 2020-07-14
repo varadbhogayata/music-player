@@ -1,0 +1,57 @@
+<section class="current-track">
+  <!-- <div class="top">
+    <a class="song" style='margin-left: 20px;'>{{last_played.name}}</a>
+    <a class="artist" style='margin-left: 20px;'>{{last_played.album}}</a>
+  </div> -->
+  <div class="current-track__actions">
+    <a class="ion-ios-skipbackward"></a>
+    <a class="ion-ios-play play"></a>
+    <a class="ion-ios-skipforward"></a>
+  </div>
+  <div class="current-track__progress">
+    <div class="current-track__progress__start">0:01</div>
+    <div class="current-track__progress__bar">
+      <div
+        id="song-progress"
+        class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+        <div class="noUi-base">
+          <div class="noUi-origin" style="left: 20%;">
+            <div class="noUi-handle noUi-handle-lower"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="current-track__progress__finish">3:07</div>
+  </div>
+  <div class="current-track__options">
+    <a href="#" class="lyrics">Lyrics</a>
+    <span class="controls">
+      <a href="#" class="control">
+        <i class="ion-navicon"></i>
+      </a>
+      <a href="#" class="control">
+        <i class="ion-shuffle"></i>
+      </a>
+      <a href="#" class="control">
+        <i class="fa fa-refresh"></i>
+      </a>
+      <a href="#" class="control devices">
+        <i class="ion-iphone"></i>
+        <span>Devices Available</span>
+      </a>
+      <a href="#" class="control volume">
+        <i class="ion-volume-high"></i>
+        <div
+          id="song-volume"
+          class="noUi-target noUi-ltr noUi-horizontal noUi-background"
+        >
+          <div class="noUi-base">
+            <div class="noUi-origin" style="left: 48.8418%;">
+              <div class="noUi-handle noUi-handle-lower"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </span>
+  </div>
+</section>

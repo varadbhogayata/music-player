@@ -258,7 +258,7 @@ def detail(request, song_id):
             return redirect('detail', song_id=song_id)
 
     context = {'songs': songs, 'playlists': playlists, 'is_favourite': is_favourite,'last_played':last_played_song}
-    return render(request, 'musicapp/detail.html', context=context)
+    return render(request, 'musicapp/test_detail2.html', context=context)
 
 
 def mymusic(request):
