@@ -148,13 +148,18 @@
       </div>
     </form>
   </div>
-</div>
-<!-- <hr> -->
-<div class="container" style="margin-bottom: 20px;">
+
+  {% if not query_search %}
   <header class="section-heading">
     <h5 class="section-title">ALL SONGS</h5>
   </header>
   <hr>
+  {% else %}
+  <header class="section-heading">
+    <h5 class="section-title">SEARCH RESULTS</h5>
+  </header>
+  <hr>
+  {% endif %}
   <!-- Song list -->
   <div class="row" style="margin-right: 65px;margin-left:-15px;">
     {% if songs %}
@@ -193,9 +198,9 @@
        <div class="bottom">
         {% if first_time %}
           <audio controls=""  name="media" style="margin-left: 20px;margin-bottom: 10px;width: 1230px;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
-            {% else %}
-            <audio controls="" autoplay name="media" style="margin-left: 20px;margin-bottom: 10px;width: 1230px;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
-              {% endif %}
+        {% else %}
+          <audio controls="" autoplay name="media" style="margin-left: 20px;margin-bottom: 10px;width: 1230px;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
+        {% endif %}
         </div>
     </div>
   </div>
