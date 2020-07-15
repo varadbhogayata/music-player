@@ -131,11 +131,17 @@
     </div>
   </form>
   <!-- <hr> -->
+  {% if not query_search %}
   <header class="section-heading">
     <h5 class="section-title">RECENTLY PLAYED</h5>
   </header>
   <hr>
-
+  {% else %}
+  <header class="section-heading">
+    <h5 class="section-title">SEARCH RESULTS</h5>
+  </header>
+  <hr>
+  {% endif %}
   
   <!-- Song list -->
   <div class="row" style="margin-right: 65px;margin-left:-15px;">

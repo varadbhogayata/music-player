@@ -127,18 +127,21 @@ body {
           </div>
       </form>
   </div>
-</div>
 
+{% if query_search %}
+  <header class="section-heading">
+    <h5 class="section-title">SEARCH RESULTS</h5>
+  </header>
 <hr>
-
+{% endif %}
 <!-- Recent Song -->
 {% if recent_songs %}
-<div class="container">
+{% if not query_search %}
   <header class="section-heading">
     <h5 class="section-title">RECENTLY PLAYED</h5>
   </header>
 <hr>
-
+{% endif %}
 <!-- Recent Song list -->
 <div class="row" style="margin-right: 65px;margin-left:-15px">
   {% for song in recent_songs %}
@@ -155,7 +158,7 @@ body {
       <a href="{% url 'recent' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
 
 </div>
-</div>
+
 <br>
 <br>
 {% endif %}
@@ -163,12 +166,14 @@ body {
 
 
 <!-- All Songs -->
-<div class="container">
+{% if not query_search %}
+
   <header class="section-heading">
     <!-- <a href="{% url 'all_songs' %}" class="btn btn-primary float-right">View all</a> -->
     <h5 class="section-title">ALL SONGS</h5>
   </header>
 <hr>
+{% endif %}
 <!-- Song list -->
 <div class="row" style="margin-right: 65px;margin-left:-15px">
   {% if all_songs %}
@@ -184,19 +189,21 @@ body {
       </div>
       {% endfor %}
       {% endif %}
+      {% if not query_search %}
       <a href="{% url 'all_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
-</div>
-</div>
+      {% endif %}
+    </div>
 <br>
 <br>
 
 
 <!-- Hindi Songs -->
-<div class="container">
+{% if not query_search %}
   <header class="section-heading">
     <h5 class="section-title">HINDI SONGS</h5>
   </header>
 <hr>
+{% endif %}
 <!-- Song list -->
 <div class="row" style="margin-right: 65px;margin-left:-15px">
   {% if hindi_songs %}
@@ -212,19 +219,20 @@ body {
       </div>
       {% endfor %}
       {% endif %}
+      {% if not query_search %}
       <a href="{% url 'hindi_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
-
-</div>
+      {% endif %}
 </div>
 <br>
 <br>
 
 <!-- English Songs -->
-<div class="container">
+{% if not query_search %}
   <header class="section-heading">
     <h5 class="section-title">ENGLISH SONGS</h5>
   </header>
 <hr>
+{% endif %}
 <!-- Song list -->
 <div class="row" style="margin-right: 65px;margin-left:-15px">
   {% if english_songs %}
@@ -240,8 +248,10 @@ body {
       </div>
       {% endfor %}
       {% endif %}
+      {% if not query_search %}
       <a href="{% url 'english_songs' %}" class="btn btn-primary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
-</div>
+      {% endif %}
+    </div>
 </div>
 <br>
 <br>
