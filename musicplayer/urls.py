@@ -18,11 +18,21 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import routers
+from authentication import views as auth_views
+
+router = routers.DefaultRouter()
+router.register(r'users', auth_views.UserViewSet)
+router.register(r'groups', auth_views.GroupViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),  # for all-auth
     path('', include('musicapp.urls')),
     path('authentication/', include('authentication.urls')),
+    
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 if settings.DEBUG:

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     
     # external
     'crispy_forms',
+    'rest_framework',
     
     # apps
     'authentication.apps.AuthenticationConfig',
@@ -181,4 +182,10 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'offline',
         }
     }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
