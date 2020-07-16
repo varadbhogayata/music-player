@@ -1,1 +1,1 @@
-web: gunicorn musicplyer.wsgi --log-file -
+web: gunicorn musicplyer.wsgi:application --preload --log-file -
