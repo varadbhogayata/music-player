@@ -65,6 +65,6 @@ $ python manage.py runserver
 
 | <a href="https://rajaprerak.github.io" target="_blank">**Prerak Raja**</a> | <a href="https://varadbhogayata.github.io" target="_blank">**Varad Bhogayata**</a> | 
 | :---: |:---:|
-| [![Prerak Raja](https://github.com/rajaprerak.png?size=350)](https://rajaprerak.github.io)    | [![Varad Bhogayata](https://github.com/varadbhogayata.png?size=350)](http://varadbhogayata.github.io) ||
+| [![Prerak Raja](https://github.com/rajaprerak.png?size=100)](https://rajaprerak.github.io)    | [![Varad Bhogayata](https://github.com/varadbhogayata.png?size=100)](http://varadbhogayata.github.io) ||
 | <a href="https://github.com/rajaprerak" target="_blank">`github.com/rajaprerak`</a> | <a href="https://github.com/varadbhogayata" target="_blank">`github.com/varadbhogayata`</a> 
 
