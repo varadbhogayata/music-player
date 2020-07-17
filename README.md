@@ -1,12 +1,12 @@
-# Django based music streaming platform
+# Django based music streaming website
 >https://galvanic-music.herokuapp.com/
 
 ### Website Preview
 #### Home Page
-<img src="website_images/Home.png" width="800">
+<img src="website_images/Home.png" width="900">
 
 #### Detail Page
-<img src="website_images/Detail.png" width="800">
+<img src="website_images/Detail.png" width="900">
 
 ## Table of Contents 
 
@@ -14,7 +14,7 @@
 - [Features](#features)
 - [Contributing](#contributing)
 - [Team](#team)
-
+- [License](#license)
 ---
 
 ## Installation
@@ -23,7 +23,7 @@
 
 #### Clone
 
-- Clone this repo to your local machine using `https://github.com/rajaprerak/music-player.git`
+- Clone this repo to your local machine.
 
 #### Run server locally
 
@@ -54,7 +54,11 @@ $ python manage.py runserver
 
 #### Step 1
 
-- 🍴 Fork this repo!
+- **Option 1**
+    - 🍴 Fork this repo!
+
+- **Option 2**
+    - 👯 Clone this repo to your local machine.
 
 
 #### Step 2
@@ -74,3 +78,7 @@ $ python manage.py runserver
 | [![Prerak Raja](https://github.com/rajaprerak.png?size=100)](https://rajaprerak.github.io)    | [![Varad Bhogayata](https://github.com/varadbhogayata.png?size=100)](https://varadbhogayata.github.io) ||
 | <a href="https://github.com/rajaprerak" target="_blank">`github.com/rajaprerak`</a> | <a href="https://github.com/varadbhogayata" target="_blank">`github.com/varadbhogayata`</a> 
 
+## License
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
