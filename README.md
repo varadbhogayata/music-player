@@ -4,6 +4,7 @@
 ### Website Preview
 #### Home Page
 <img src="website_images/Home.png" width="800">
+
 #### Detail Page
 <img src="website_images/Detail.png" width="800">
 
