@@ -1,6 +1,12 @@
 # Django based music streaming platform
 >https://galvanic-music.herokuapp.com/
 
+### Website Preview
+* Home Page
+![](website_image/Home.png)
+
+* Detail Page
+![](website_image/Detail.png)
 
 ### Table of Contents 
 
