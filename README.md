@@ -2,13 +2,12 @@
 >https://galvanic-music.herokuapp.com/
 
 ### Website Preview
-* Home Page
-![](website_image/Home.png)
+#### Home Page
+<img src="website_images/Home.png" width="800">
+#### Detail Page
+<img src="website_images/Detail.png" width="800">
 
-* Detail Page
-![](website_image/Detail.png)
-
-### Table of Contents 
+## Table of Contents 
 
 - [Installation](#installation)
 - [Features](#features)
@@ -35,8 +34,8 @@ $ python manage.py runserver
 ---
 
 ## Features
-* Signup and Signin option.
-* Google signup and signin option.
+* SignUp and SignIn option.
+* Google SignUp and SignIn option.
 * Play song, view detailed information of song.
 * Search songs.
 * Filter songs based on language and singer.
