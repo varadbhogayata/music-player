@@ -70,7 +70,7 @@ $ python manage.py runserver
 
 
 
-## Project Maintainers ✨
+## Team ✨
 
 | <a href="https://rajaprerak.github.io" target="_blank">**Prerak Raja**</a> | <a href="https://varadbhogayata.github.io" target="_blank">**Varad Bhogayata**</a> | 
 | :---: |:---:|
