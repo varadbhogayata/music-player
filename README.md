@@ -43,7 +43,7 @@ $ python manage.py runserver
 ⚡️ Add/Remove songs to/from playlist.\
 ⚡️ Add/Remove songs to/from favourites.\
 ⚡️ Scroll through recently played/viewed songs.\
-⚡️ Explore songs through your personalized playlist and favourites.\
+⚡️ Explore songs through your personalized playlist and favourites.
 
 
 ---
